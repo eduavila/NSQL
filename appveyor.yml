@@ -12,10 +12,13 @@ build:
   publish_nuget: true
   include_nuget_references: true
   verbosity: minimal
+before_test:
+  - ps: >-
+    dotnet restore .\NSql.sln
 test_script:
 - cmd: >-
     cd .\src\NSql.Test
-    dotnet restore
+    dotnet restore .\NSql.Test.
     dotnet test -f %framework% -s test.runsettings
 cache:
   - $HOME/.nuget/packages
