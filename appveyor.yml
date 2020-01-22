@@ -13,7 +13,7 @@ build:
   include_nuget_references: true
   verbosity: minimal
 before_test:
-  - ps: >-
+- ps: >-
     dotnet restore .\NSql.sln
 test_script:
 - cmd: >-
