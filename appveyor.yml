@@ -1,0 +1,23 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+image: Visual Studio 2017
+configuration: Release
+environment:
+  git_access_token:
+    secure: FxcQ9C8a/NgcQB5dFdZts6ZWEDT4zMhA4qPQAYwWc7huMmhmTIl1sbFEIaAWQMTL
+before_build:
+- ps: >-
+    dotnet restore .\NSql.sln
+build:
+  project: .\NSql.sln
+  publish_nuget: true
+  include_nuget_references: true
+  verbosity: minimal
+test_script:
+- cmd: >-
+    cd .\src\NSql.Test
+    dotnet test -f %framework% -s test.runsettings
+cache:
+  - $HOME/.nuget/packages
