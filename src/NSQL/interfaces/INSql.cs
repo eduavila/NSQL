@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NSQL.Classes;
+using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
-namespace NSQLQuery.interfaces
+namespace NSQL.Interfaces
 {
     public interface INSql
     {

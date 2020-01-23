@@ -1,10 +1,10 @@
-﻿using NSQLQuery.interfaces;
+﻿using NSQL.Interfaces;
 using System;
 using System.Collections.Generic;
 
-namespace NSQLQuery
+namespace NSQL.Classes
 {
-    public class NSQL : INSql
+    public class NSQLQuery : INSql
     {
         private readonly List<Condition> ListConditionWheres = new List<Condition>();
         private readonly List<Condition> ListConditionHavings = new List<Condition>();
@@ -17,18 +17,18 @@ namespace NSQLQuery
 
         private string SqlRaw;
 
-        public NSQL()
+        public NSQLQuery()
         {
             this.SqlRaw = "";
         }
-        public NSQL(string sql)
+        public NSQLQuery(string sql)
         {
             this.SqlRaw = sql;
         }
 
         public static INSql Create(string sql)
         {
-            return new NSQL(sql);
+            return new NSQLQuery(sql);
         }
 
         #region "Private Function"
@@ -128,7 +128,7 @@ namespace NSQLQuery
                 // Verifica se funcao
                 if (where.SubCondition != null)
                 {
-                    var query = new NSQL();
+                    var query = new NSQLQuery();
                     where.SubCondition(query);
 
                     raw += string.Format(" ( {0} )", query.ToWhere().Trim());
@@ -151,7 +151,7 @@ namespace NSQLQuery
                             break;
                         case Op.Between:
 
-                            raw += string.Format(" BETWEEN {0} AND {1} ", where.ValueFrom, where.ValueTo);
+                            raw += string.Format(" BETWEEN '{0}' AND '{1}'", where.ValueFrom, where.ValueTo);
                             break;
                         case Op.Raw:
 
