@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace NSQL
+namespace NSQLQuery
 {
     public interface INSql
     {

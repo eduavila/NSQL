@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NSQL
+namespace NSQLQuery
 {
 #pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
     public class NSQL : INSql
