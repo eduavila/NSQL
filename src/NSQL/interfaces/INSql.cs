@@ -199,7 +199,7 @@ namespace NSQLQuery.interfaces
 
         String ToWhere();
 
-        INSql BindParam(String param, object value);
+        INSql BindParam(string param, object value, TipoParam tipoParam = TipoParam.Nada);
 
         INSql JoinWhere(INSql query);
 
@@ -232,5 +232,12 @@ namespace NSQLQuery.interfaces
     {
         ASC,
         DESC
+    }
+
+    public enum TipoParam
+    {
+        Nada,
+        Aspas,
+        SemAspas
     }
 }

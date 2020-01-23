@@ -38,15 +38,26 @@ namespace NSQLQuery
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private string ToTypeSql(object value)
+        private string ToTypeSql(object value, TipoParam tipoParam = TipoParam.Nada)
         {
-            if (value is int)
+            if (tipoParam == TipoParam.Aspas)
             {
-                return value.ToString();
+                return String.Format("'{0}'", value);
+            }
+            else if (tipoParam == TipoParam.SemAspas)
+            {
+                return String.Format("{0}", value);
             }
             else
             {
-                return String.Format("'{0}'", value);
+                if (value is int)
+                {
+                    return value.ToString();
+                }
+                else
+                {
+                    return String.Format("'{0}'", value);
+                }
             }
         }
 
@@ -187,7 +198,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereOr(string column, Op operador, object valor)
         {
             var condition = new Condition()
@@ -203,7 +214,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereBetween(string column, string from, string to)
         {
             var condition = new Condition()
@@ -219,7 +230,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereNotNull(string column)
         {
             var condition = new Condition()
@@ -358,13 +369,13 @@ namespace NSQLQuery
                 {
 
                     var paramRaw = string.Format(":{0}", param.Param);
-                    raw = raw.Replace(paramRaw, ToTypeSql(param.Value));
+                    raw = raw.Replace(paramRaw, ToTypeSql(param.Value, param.TipoParam));
                 }
             }
 
             return raw;
         }
-        
+
         public INSql Having(string column, Op operador, object valor)
         {
             var condition = new Condition()
@@ -379,7 +390,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql HavingOr(string column, Op operador, object valor)
         {
             var condition = new Condition()
@@ -407,7 +418,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql Limit(int value)
         {
             var condition = new ConditionLimit()
@@ -419,7 +430,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql OffSet(int value)
         {
             var condition = new ConditionOffSet()
@@ -431,12 +442,12 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql Paginate(int limit, int numberPage)
         {
             throw new NotImplementedException();
         }
-        
+
         public INSql GroupBy(string column)
         {
             var condition = new ConditionGroupBy()
@@ -448,13 +459,14 @@ namespace NSQLQuery
 
             return this;
         }
-        
-        public INSql BindParam(string param, object value)
+
+        public INSql BindParam(string param, object value, TipoParam tipoParam = TipoParam.Nada)
         {
             var condition = new ConditionBindParam()
             {
                 Param = param,
-                Value = value
+                Value = value,
+                TipoParam = tipoParam
             };
 
             this.ListConditionBindParams.Add(condition);
@@ -466,13 +478,13 @@ namespace NSQLQuery
             this.ListConditionWheres.AddRange(query.GetWheres());
             return this;
         }
-        
+
         public INSql JoinHaving(INSql query)
         {
             this.ListConditionHavings.AddRange(query.GetHavings());
             return this;
         }
-        
+
         public INSql WhereNotIn(string column, string value, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -487,7 +499,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereIn(string column, string value, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -503,7 +515,7 @@ namespace NSQLQuery
             return this;
         }
 
-        
+
         public INSql WhereIn(string column, List<object> values, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -518,7 +530,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereNotIn(string column, object value, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -533,7 +545,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereNotIn(string column, List<object> values, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -548,7 +560,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereLike(string column, string value)
         {
             var condtion = new Condition()
@@ -563,7 +575,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql WhereLikeOr(string column, string value)
         {
             var condtion = new Condition()
@@ -578,7 +590,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql Where(Action<INSql> SubCondition, Cond condition = Cond.AND)
         {
             var condtion = new Condition()
@@ -591,7 +603,7 @@ namespace NSQLQuery
 
             return this;
         }
-        
+
         public INSql Where(INSql subquery, Cond condition = Cond.AND)
         {
             var cond = new Condition()
@@ -657,12 +669,12 @@ namespace NSQLQuery
         #endregion
 
         #region "Overrides"
-        
+
         public override string ToString()
         {
             return base.ToString();
         }
-        
+
         public INSql WhereFindInSet(string column, List<object> values, Cond condition = Cond.AND)
         {
             var cond = new Condition()
@@ -676,7 +688,7 @@ namespace NSQLQuery
             this.ListConditionWheres.Add(cond);
             return this;
         }
-        
+
         public INSql WhereFindInSet(string column, string value, Cond condition = Cond.AND)
         {
             var cond = new Condition()
@@ -691,7 +703,7 @@ namespace NSQLQuery
             return this;
         }
 
-       
+
 
         #endregion
     }
@@ -735,6 +747,7 @@ namespace NSQLQuery
     {
         public string Param { get; set; }
         public object Value { get; set; }
+        public TipoParam TipoParam { get; set; }
     }
 
     public static class TypeExtensions

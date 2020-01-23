@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSQL;
+using NSQLQuery;
+using NSQLQuery.interfaces;
 
 namespace NSql.Test
 {
@@ -21,7 +22,7 @@ namespace NSql.Test
         public void TestStatic()
         {
             var sqlRaw = "select * from test";
-            var nsql = NSQL.NSQL.Create(sqlRaw);
+            var nsql = NSQL.Create(sqlRaw);
 
             Assert.AreEqual(nsql.ToSql(), sqlRaw, true);
         }
@@ -30,7 +31,7 @@ namespace NSql.Test
         public void TestConditionWhereNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var valor =10;
 
@@ -43,7 +44,7 @@ namespace NSql.Test
         public void TestConditionWhereString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var texto = "nome do cliente";
 
@@ -57,7 +58,7 @@ namespace NSql.Test
         public void TestConditionHavingString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var texto = "nome do cliente";
 
@@ -71,7 +72,7 @@ namespace NSql.Test
         public void TestConditionHavingNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var numero = 10;
 
@@ -85,7 +86,7 @@ namespace NSql.Test
         public void TestConditionHavingOrNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var numero = 10;
 
@@ -101,7 +102,7 @@ namespace NSql.Test
         public void TestConditionWhereOr()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var numero = 10;
 
@@ -117,7 +118,7 @@ namespace NSql.Test
         public void TestConditionParams()
         {
             var sqlRaw = "select * from test t1 join teste2 t2 on t1.id = t2.id and t2.parametro = :parametroTeste";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var numero = 10;
             nsql.BindParam("parametroTeste", numero);
@@ -130,7 +131,7 @@ namespace NSql.Test
         public void TestConditionOrdeBy()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.OrderBy("coluna1");
             nsql.OrderBy("coluna2",Order.DESC);
@@ -143,7 +144,7 @@ namespace NSql.Test
         public void TestConditionGroupBy()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.GroupBy("coluna1");
             nsql.GroupBy("coluna2");
@@ -156,7 +157,7 @@ namespace NSql.Test
         public void TestConditionLimit()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.Limit(100);
 
@@ -168,7 +169,7 @@ namespace NSql.Test
         public void TestConditionWhereLike()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.WhereLike("coluna1", "%teste%");
 
@@ -181,8 +182,8 @@ namespace NSql.Test
         public void TestConditionWhereLikeOr()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
-
+            var nsql = new NSQL(sqlRaw);
+            
             nsql.WhereLike("coluna1", "%teste%");
             nsql.WhereLikeOr("coluna2", "%teste%");
 
@@ -194,7 +195,7 @@ namespace NSql.Test
         public void TestConditionWhereIn()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.WhereIn("coluna1", "2,3,4");
 
@@ -206,7 +207,7 @@ namespace NSql.Test
         public void TestConditionWhereInArrayString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var valores = new List<Object>() { "teste", "teste2" };
 
@@ -220,7 +221,7 @@ namespace NSql.Test
         public void TestConditionWhereNotInArrayInt()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             var valores = new List<Object>() { 151, 65656};
 
@@ -234,7 +235,7 @@ namespace NSql.Test
         public void TestConditionWhereSubCondition()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.Where("coluna2", Op.IGUAL, "teste").Where(x =>
               {
@@ -249,7 +250,7 @@ namespace NSql.Test
         public void TestConditionWhereRaw()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.WhereRaw("COALESCE(coluna1) = 1");
             nsql.WhereRaw("( select * from teste2 t where t.coluna2 = 1 )",Cond.OR);
@@ -263,10 +264,10 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             // SUb Query
-            var nSubSql = new NSQL.NSQL("select * from teste2");
+            var nSubSql = new NSQL("select * from teste2");
             nSubSql.Where("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
@@ -282,10 +283,10 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             // Query 2
-            var nSubSql = new NSQL.NSQL();
+            var nSubSql = new NSQL();
             nSubSql.Where("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
@@ -303,7 +304,7 @@ namespace NSql.Test
             var nsql = new NSQL(sqlRaw);
 
             // Query 2
-            var nSubSql = new NSQL.NSQL();
+            var nSubSql = new NSQL();
             nSubSql.Having("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
@@ -318,7 +319,7 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.WhereFindInSet("coluna1", "1,2,3,4,5");
       
@@ -332,7 +333,7 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             nsql.WhereFindInSet("coluna1", new List<object>() {1,2,3,4,5});
 
