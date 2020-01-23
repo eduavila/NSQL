@@ -1,11 +1,10 @@
-﻿using System;
+﻿using NSQLQuery.interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace NSQLQuery
 {
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
     public class NSQL : INSql
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
     {
         private readonly List<Condition> ListConditionWheres = new List<Condition>();
         private readonly List<Condition> ListConditionHavings = new List<Condition>();
@@ -27,9 +26,7 @@ namespace NSQLQuery
             this.SqlRaw = sql;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         public static INSql Create(string sql)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             return new NSQL(sql);
         }
@@ -53,14 +50,12 @@ namespace NSQLQuery
             }
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         /// <summary>
         ///  Retornar operador
         /// </summary>
         /// <param name="operatorValue"></param>
         /// <returns></returns>
         private string GetOperator(Op operatorValue)
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         {
             switch (operatorValue)
             {
@@ -76,14 +71,14 @@ namespace NSQLQuery
                     return "";
             }
         }
-        
+
         /// <summary>
         ///  Converte Lista para string separado por virgula.
         /// </summary>
         /// <param name="values"></param>
         /// <param name="checkType"></param>
         /// <returns></returns>
-        private string ConvertToIn(List<object> values,bool checkType = true)
+        private string ConvertToIn(List<object> values, bool checkType = true)
         {
             List<String> valuesRest = new List<String>();
 
@@ -177,12 +172,7 @@ namespace NSQLQuery
         #endregion
 
         #region "Public Function"
-
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         public INSql Where(string column, Op operador, object value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -197,12 +187,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereOr(string column, Op operador, object valor)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -217,10 +203,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereBetween(string column, string from, string to)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -235,10 +219,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereNotNull(string column)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -252,9 +234,7 @@ namespace NSQLQuery
             return this;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         public INSql WhereNull(string column)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -268,13 +248,8 @@ namespace NSQLQuery
             return this;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
         public INSql WhereRaw(string sql, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+
         {
             var cond = new Condition()
             {
@@ -333,7 +308,7 @@ namespace NSQLQuery
                     }
 
                     raw += String.Format("{0}", group.Column);
-                }               
+                }
             }
 
             //
@@ -379,7 +354,7 @@ namespace NSQLQuery
 
             if (this.ListConditionBindParams.Count > 0)
             {
-                foreach(var param in this.ListConditionBindParams)
+                foreach (var param in this.ListConditionBindParams)
                 {
 
                     var paramRaw = string.Format(":{0}", param.Param);
@@ -389,12 +364,8 @@ namespace NSQLQuery
 
             return raw;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql Having(string column, Op operador, object valor)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -408,12 +379,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql HavingOr(string column, Op operador, object valor)
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new Condition()
             {
@@ -428,13 +395,7 @@ namespace NSQLQuery
             return this;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'Order' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Order' does not exist in the current context
         public INSql OrderBy(string column, Order order = Order.ASC)
-#pragma warning restore CS0103 // The name 'Order' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Order' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new ConditionOrderBy()
             {
@@ -446,10 +407,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql Limit(int value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new ConditionLimit()
             {
@@ -460,10 +419,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql OffSet(int value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new ConditionOffSet()
             {
@@ -474,17 +431,13 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql Paginate(int limit, int numberPage)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             throw new NotImplementedException();
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql GroupBy(string column)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new ConditionGroupBy()
             {
@@ -495,10 +448,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql BindParam(string param, object value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condition = new ConditionBindParam()
             {
@@ -510,33 +461,19 @@ namespace NSQLQuery
             return this;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         public INSql JoinWhere(INSql query)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             this.ListConditionWheres.AddRange(query.GetWheres());
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql JoinHaving(INSql query)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             this.ListConditionHavings.AddRange(query.GetHavings());
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereNotIn(string column, string value, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condtion = new Condition()
             {
@@ -550,14 +487,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereIn(string column, string value, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var condtion = new Condition()
             {
@@ -572,14 +503,8 @@ namespace NSQLQuery
             return this;
         }
 
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereIn(string column, List<object> values, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var condtion = new Condition()
             {
@@ -593,14 +518,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereNotIn(string column, object value, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condtion = new Condition()
             {
@@ -614,14 +533,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereNotIn(string column, List<object> values, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var condtion = new Condition()
             {
@@ -635,10 +548,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereLike(string column, string value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condtion = new Condition()
             {
@@ -652,10 +563,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereLikeOr(string column, string value)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var condtion = new Condition()
             {
@@ -669,16 +578,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql Where(Action<INSql> SubCondition, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var condtion = new Condition()
             {
@@ -690,16 +591,8 @@ namespace NSQLQuery
 
             return this;
         }
-
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
+        
         public INSql Where(INSql subquery, Cond condition = Cond.AND)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
         {
             var cond = new Condition()
             {
@@ -712,15 +605,28 @@ namespace NSQLQuery
             return this;
         }
 
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
+        /// <summary>
+        /// Where Default OP = IGUAL
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public INSql Where(string column, object value)
+        {
+            var condtion = new Condition()
+            {
+                Column = column,
+                Value = value,
+                Operator = Op.IGUAL,
+                ConditionValue = Cond.AND
+            };
+
+            this.ListConditionWheres.Add(condtion);
+
+            return this;
+        }
+
         public INSql Having(INSql subquery, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         {
             var cond = new Condition()
             {
@@ -751,21 +657,13 @@ namespace NSQLQuery
         #endregion
 
         #region "Overrides"
-
-#pragma warning disable CS0115 // 'NSQL.ToString()': no suitable method found to override
+        
         public override string ToString()
-#pragma warning restore CS0115 // 'NSQL.ToString()': no suitable method found to override
         {
             return base.ToString();
         }
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereFindInSet(string column, List<object> values, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var cond = new Condition()
             {
@@ -778,26 +676,22 @@ namespace NSQLQuery
             this.ListConditionWheres.Add(cond);
             return this;
         }
-
-#pragma warning disable CS0103 // The name 'Cond' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
+        
         public INSql WhereFindInSet(string column, string value, Cond condition = Cond.AND)
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Cond' does not exist in the current context
         {
             var cond = new Condition()
             {
                 Operator = Op.FindInSet,
                 ConditionValue = condition,
-                Column  = column,
+                Column = column,
                 Value = value
             };
 
             this.ListConditionWheres.Add(cond);
             return this;
         }
+
+       
 
         #endregion
     }
@@ -807,27 +701,19 @@ namespace NSQLQuery
     public class Condition
     {
         public string Column { get; set; }
-#pragma warning disable CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         public Op Operator { get; set; }
-#pragma warning restore CS0246 // The type or namespace name 'Op' could not be found (are you missing a using directive or an assembly reference?)
         public object Value { get; set; }
         public string ValueFrom { get; set; }
         public string ValueTo { get; set; }
         public string Raw { get; set; }
-#pragma warning disable CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
         public Cond ConditionValue { get; set; }
-#pragma warning restore CS0246 // The type or namespace name 'Cond' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
         public Action<INSql> SubCondition { get; set; }
-#pragma warning restore CS0246 // The type or namespace name 'INSql' could not be found (are you missing a using directive or an assembly reference?)
     }
 
     public class ConditionOrderBy
     {
         public string Column { get; set; }
-#pragma warning disable CS0246 // The type or namespace name 'Order' could not be found (are you missing a using directive or an assembly reference?)
         public Order Order { get; set; }
-#pragma warning restore CS0246 // The type or namespace name 'Order' could not be found (are you missing a using directive or an assembly reference?)
     }
 
     public class ConditionGroupBy

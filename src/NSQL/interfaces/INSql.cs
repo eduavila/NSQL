@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace NSQLQuery
+namespace NSQLQuery.interfaces
 {
     public interface INSql
     {
@@ -44,7 +44,10 @@ namespace NSQLQuery
         /// <param name="column"></param>
         /// <param name="operador"></param>
         /// <returns></returns>
-        INSql Where(string column, Op operador,object value);
+        INSql Where(string column, Op operador, object value);
+
+        ///
+        INSql Where(string column, object value);
 
         /// <summary>
         ///  
@@ -84,7 +87,7 @@ namespace NSQLQuery
 
         INSql WhereLike(string column, string value);
 
-        INSql WhereLikeOr(string column, string  value);
+        INSql WhereLikeOr(string column, string value);
 
         /// <summary>
         ///  Adicione uma cláusula "where in" básica à consulta
@@ -112,7 +115,7 @@ namespace NSQLQuery
         /// <param name="values"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        INSql WhereIn(string column,List<object> values, Cond condition = Cond.AND);
+        INSql WhereIn(string column, List<object> values, Cond condition = Cond.AND);
 
         /// <summary>
         /// 
@@ -130,7 +133,7 @@ namespace NSQLQuery
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        INSql WhereBetween(string column, string from,string to);
+        INSql WhereBetween(string column, string from, string to);
 
         /// <summary>
         /// 
@@ -188,7 +191,7 @@ namespace NSQLQuery
 
         INSql OffSet(int value);
 
-        INSql Paginate(int limit,int numberPage);
+        INSql Paginate(int limit, int numberPage);
 
         INSql GroupBy(string column);
 
@@ -210,7 +213,7 @@ namespace NSQLQuery
     }
 
     public enum Op
-    {   
+    {
         IGUAL,
         Diferente,
         MaiorQue,

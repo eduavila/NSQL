@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-#pragma warning disable CS0246 // The type or namespace name 'NSQL' could not be found (are you missing a using directive or an assembly reference?)
 using NSQL;
-#pragma warning restore CS0246 // The type or namespace name 'NSQL' could not be found (are you missing a using directive or an assembly reference?)
 
 namespace NSql.Test
 {
@@ -14,7 +12,7 @@ namespace NSql.Test
         public void TestIntance()
         {
             var sqlRaw = "select * from test";
-             var nsql = new NSQL.NSQL(sqlRaw);
+             var nsql = new NSQL(sqlRaw);
              
              Assert.AreEqual(nsql.ToSql(), sqlRaw,true);
         }
@@ -302,7 +300,7 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQL(sqlRaw);
 
             // Query 2
             var nSubSql = new NSQL.NSQL();
