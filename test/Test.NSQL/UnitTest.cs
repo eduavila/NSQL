@@ -1,29 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using NSQL.Interfaces;
+using NSQL.Classes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-#pragma warning disable CS0246 // The type or namespace name 'NSQL' could not be found (are you missing a using directive or an assembly reference?)
-using NSQL;
-#pragma warning restore CS0246 // The type or namespace name 'NSQL' could not be found (are you missing a using directive or an assembly reference?)
 
-namespace NSql.Test
+namespace NSQL.Test
 {
     [TestClass]
-    public class NSqlTest
+    public class UnitTest
     {
         [TestMethod]
         public void TestIntance()
         {
             var sqlRaw = "select * from test";
-             var nsql = new NSQL.NSQL(sqlRaw);
-             
-             Assert.AreEqual(nsql.ToSql(), sqlRaw,true);
+            var nsql = new NSQLQuery(sqlRaw);
+
+            Assert.AreEqual(nsql.ToSql(), sqlRaw, true);
         }
 
         [TestMethod]
         public void TestStatic()
         {
             var sqlRaw = "select * from test";
-            var nsql = NSQL.NSQL.Create(sqlRaw);
+            var nsql = NSQLQuery.Create(sqlRaw);
 
             Assert.AreEqual(nsql.ToSql(), sqlRaw, true);
         }
@@ -32,34 +31,34 @@ namespace NSql.Test
         public void TestConditionWhereNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
-            var valor =10;
+            var valor = 10;
 
             nsql.Where("coluna1", Op.IGUAL, valor);
 
-            Assert.AreEqual(nsql.ToSql(), sqlRaw + " WHERE coluna1 = 10",true);
+            Assert.AreEqual(nsql.ToSql(), sqlRaw + " WHERE coluna1 = 10", true);
         }
 
         [TestMethod]
         public void TestConditionWhereString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var texto = "nome do cliente";
 
             nsql.Where("coluna1", Op.IGUAL, texto);
             nsql.Where("coluna2", Op.Diferente, texto);
 
-            Assert.AreEqual(nsql.ToSql(), sqlRaw + " WHERE coluna1 = 'nome do cliente' AND coluna2 != 'nome do cliente'",true);
+            Assert.AreEqual(nsql.ToSql(), sqlRaw + " WHERE coluna1 = 'nome do cliente' AND coluna2 != 'nome do cliente'", true);
         }
 
         [TestMethod]
         public void TestConditionHavingString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var texto = "nome do cliente";
 
@@ -73,7 +72,7 @@ namespace NSql.Test
         public void TestConditionHavingNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var numero = 10;
 
@@ -87,7 +86,7 @@ namespace NSql.Test
         public void TestConditionHavingOrNumber()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var numero = 10;
 
@@ -103,7 +102,7 @@ namespace NSql.Test
         public void TestConditionWhereOr()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var numero = 10;
 
@@ -119,23 +118,23 @@ namespace NSql.Test
         public void TestConditionParams()
         {
             var sqlRaw = "select * from test t1 join teste2 t2 on t1.id = t2.id and t2.parametro = :parametroTeste";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var numero = 10;
             nsql.BindParam("parametroTeste", numero);
 
             var expected = "select * from test t1 join teste2 t2 on t1.id = t2.id and t2.parametro = 10";
-            Assert.AreEqual(expected,nsql.ToSql(), true);
+            Assert.AreEqual(expected, nsql.ToSql(), true);
         }
 
         [TestMethod]
         public void TestConditionOrdeBy()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.OrderBy("coluna1");
-            nsql.OrderBy("coluna2",Order.DESC);
+            nsql.OrderBy("coluna2", Order.DESC);
 
             var expected = "select * from test ORDER BY coluna1 ASC,coluna2 DESC";
             Assert.AreEqual(expected, nsql.ToSql(), true);
@@ -145,7 +144,7 @@ namespace NSql.Test
         public void TestConditionGroupBy()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.GroupBy("coluna1");
             nsql.GroupBy("coluna2");
@@ -158,7 +157,7 @@ namespace NSql.Test
         public void TestConditionLimit()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.Limit(100);
 
@@ -170,7 +169,7 @@ namespace NSql.Test
         public void TestConditionWhereLike()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.WhereLike("coluna1", "%teste%");
 
@@ -183,7 +182,7 @@ namespace NSql.Test
         public void TestConditionWhereLikeOr()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.WhereLike("coluna1", "%teste%");
             nsql.WhereLikeOr("coluna2", "%teste%");
@@ -196,7 +195,7 @@ namespace NSql.Test
         public void TestConditionWhereIn()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.WhereIn("coluna1", "2,3,4");
 
@@ -208,7 +207,7 @@ namespace NSql.Test
         public void TestConditionWhereInArrayString()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             var valores = new List<Object>() { "teste", "teste2" };
 
@@ -222,9 +221,9 @@ namespace NSql.Test
         public void TestConditionWhereNotInArrayInt()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
-            var valores = new List<Object>() { 151, 65656};
+            var valores = new List<Object>() { 151, 65656 };
 
             nsql.WhereNotIn("coluna1", valores);
 
@@ -236,12 +235,12 @@ namespace NSql.Test
         public void TestConditionWhereSubCondition()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.Where("coluna2", Op.IGUAL, "teste").Where(x =>
-              {
-                  x.Where("coluna1", Op.IGUAL, "teste");
-              });
+            {
+                x.Where("coluna1", Op.IGUAL, "teste");
+            });
 
             var expected = "select * from test WHERE coluna2 = 'teste' AND ( coluna1 = 'teste' )";
             Assert.AreEqual(expected, nsql.ToSql(), true);
@@ -251,10 +250,10 @@ namespace NSql.Test
         public void TestConditionWhereRaw()
         {
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.WhereRaw("COALESCE(coluna1) = 1");
-            nsql.WhereRaw("( select * from teste2 t where t.coluna2 = 1 )",Cond.OR);
+            nsql.WhereRaw("( select * from teste2 t where t.coluna2 = 1 )", Cond.OR);
 
             var expected = "select * from test WHERE COALESCE(coluna1) = 1 AND ( select * from teste2 t where t.coluna2 = 1 )";
             Assert.AreEqual(expected, nsql.ToSql(), true);
@@ -265,15 +264,15 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             // SUb Query
-            var nSubSql = new NSQL.NSQL("select * from teste2");
+            var nSubSql = new NSQLQuery("select * from teste2");
             nSubSql.Where("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
             nsql.Where(nSubSql);
-    
+
             var expected = "select * from test WHERE ( select * from teste2 WHERE coluna1 = 'TESTE' )";
             Assert.AreEqual(expected, nsql.ToSql(), true);
         }
@@ -284,10 +283,10 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             // Query 2
-            var nSubSql = new NSQL.NSQL();
+            var nSubSql = new NSQLQuery();
             nSubSql.Where("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
@@ -302,10 +301,10 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             // Query 2
-            var nSubSql = new NSQL.NSQL();
+            var nSubSql = new NSQLQuery();
             nSubSql.Having("coluna1", Op.IGUAL, "TESTE");
 
             // Adiciona sub query 
@@ -320,10 +319,10 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
             nsql.WhereFindInSet("coluna1", "1,2,3,4,5");
-      
+
 
             var expected = "select * from test WHERE FIND_IN_SET(coluna1,'1,2,3,4,5')";
             Assert.AreEqual(expected, nsql.ToSql(), true);
@@ -334,11 +333,21 @@ namespace NSql.Test
         {
             // Query Principal
             var sqlRaw = "select * from test";
-            var nsql = new NSQL.NSQL(sqlRaw);
+            var nsql = new NSQLQuery(sqlRaw);
 
-            nsql.WhereFindInSet("coluna1", new List<object>() {1,2,3,4,5});
+            nsql.WhereFindInSet("coluna1", new List<object>() { 1, 2, 3, 4, 5 });
 
             var expected = "select * from test WHERE FIND_IN_SET(coluna1,'1,2,3,4,5')";
+            Assert.AreEqual(expected, nsql.ToSql(), true);
+        }
+
+        [TestMethod]
+        public void TestConditionWHereNull()
+        {
+            var sqlRaw = "select * from test";
+            var nsql = new NSQLQuery(sqlRaw);
+            nsql.Where("coluna1", Op.Null);
+            var expected = "select * from test where coluna1 is null";
             Assert.AreEqual(expected, nsql.ToSql(), true);
         }
     }

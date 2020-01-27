@@ -41,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="interfaces\INSql.cs" />
-    <Compile Include="NSQL.cs" />
+    <Compile Include="Interfaces\INSql.cs" />
+    <Compile Include="Classes\NSQLQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

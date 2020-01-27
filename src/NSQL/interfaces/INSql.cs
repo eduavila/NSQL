@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NSQL.Classes;
+using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
-namespace NSQL
+namespace NSQL.Interfaces
 {
     public interface INSql
     {
@@ -44,7 +44,10 @@ namespace NSQL
         /// <param name="column"></param>
         /// <param name="operador"></param>
         /// <returns></returns>
-        INSql Where(string column, Op operador,object value);
+        INSql Where(string column, Op operador, object value);
+
+        ///
+        INSql Where(string column, object value);
 
         /// <summary>
         ///  
@@ -84,7 +87,7 @@ namespace NSQL
 
         INSql WhereLike(string column, string value);
 
-        INSql WhereLikeOr(string column, string  value);
+        INSql WhereLikeOr(string column, string value);
 
         /// <summary>
         ///  Adicione uma cláusula "where in" básica à consulta
@@ -112,7 +115,7 @@ namespace NSQL
         /// <param name="values"></param>
         /// <param name="condition"></param>
         /// <returns></returns>
-        INSql WhereIn(string column,List<object> values, Cond condition = Cond.AND);
+        INSql WhereIn(string column, List<object> values, Cond condition = Cond.AND);
 
         /// <summary>
         /// 
@@ -130,7 +133,7 @@ namespace NSQL
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns></returns>
-        INSql WhereBetween(string column, string from,string to);
+        INSql WhereBetween(string column, string from, string to);
 
         /// <summary>
         /// 
@@ -188,7 +191,7 @@ namespace NSQL
 
         INSql OffSet(int value);
 
-        INSql Paginate(int limit,int numberPage);
+        INSql Paginate(int limit, int numberPage);
 
         INSql GroupBy(string column);
 
@@ -196,7 +199,7 @@ namespace NSQL
 
         String ToWhere();
 
-        INSql BindParam(String param, object value);
+        INSql BindParam(string param, object value, TipoParam tipoParam = TipoParam.Nada);
 
         INSql JoinWhere(INSql query);
 
@@ -210,7 +213,7 @@ namespace NSQL
     }
 
     public enum Op
-    {   
+    {
         IGUAL,
         Diferente,
         MaiorQue,
@@ -229,5 +232,12 @@ namespace NSQL
     {
         ASC,
         DESC
+    }
+
+    public enum TipoParam
+    {
+        Nada,
+        Aspas,
+        SemAspas
     }
 }

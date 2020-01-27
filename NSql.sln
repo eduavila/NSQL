@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSql.Test", "src\NSql.Test\NSql.Test.csproj", "{E54D53D5-DE1C-4F97-9256-66F34D732FB3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSQL", "src\NSQL\NSQL.csproj", "{54D4FE4E-D9E2-48B2-AC60-A6B308A27196}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSQL.Test", "test\Test.NSQL\NSQL.Test.csproj", "{0FD692E9-A02E-4CD4-8887-BE09CAE7A247}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E54D53D5-DE1C-4F97-9256-66F34D732FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E54D53D5-DE1C-4F97-9256-66F34D732FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E54D53D5-DE1C-4F97-9256-66F34D732FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E54D53D5-DE1C-4F97-9256-66F34D732FB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54D4FE4E-D9E2-48B2-AC60-A6B308A27196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54D4FE4E-D9E2-48B2-AC60-A6B308A27196}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54D4FE4E-D9E2-48B2-AC60-A6B308A27196}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54D4FE4E-D9E2-48B2-AC60-A6B308A27196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FD692E9-A02E-4CD4-8887-BE09CAE7A247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD692E9-A02E-4CD4-8887-BE09CAE7A247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD692E9-A02E-4CD4-8887-BE09CAE7A247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD692E9-A02E-4CD4-8887-BE09CAE7A247}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
